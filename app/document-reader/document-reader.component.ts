@@ -1,6 +1,4 @@
-﻿/// <reference path="../../typings/TextHighlighter.d.ts" />
-
-import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit, AfterViewChecked, ViewChild, Renderer } from '@angular/core';
+﻿import { Component, OnInit, OnDestroy, AfterViewInit, AfterContentInit, AfterViewChecked, ViewChild, Renderer } from '@angular/core';
 import { DocumentService } from './document.service';
 import { CommentService } from './comment.service';
 import { HighlightService } from './highlight.service';
@@ -41,7 +39,6 @@ export class DocumentReaderComponent implements OnInit, OnDestroy, AfterViewChec
         private commentService: CommentService,
         private highlightService: HighlightService,
         private route: ActivatedRoute,
-        private location: Location,
         private renderer: Renderer
     ) { }
 
@@ -123,7 +120,7 @@ export class DocumentReaderComponent implements OnInit, OnDestroy, AfterViewChec
         console.log("View checked");
         if (this.txtPresenter != undefined && this.firstLoad) {
             this.globalListenSelectionChange = this.renderer.listenGlobal('document', 'selectionchange', (event) => {
-                console.log(event);
+                // console.log(event);
                 this.firstSelectionDone = true;
                 if (event.path[1].getSelection() != 0 &&                                  // event.path[1] is the window. Highlighing removes selection, might go to NPE here with getRangeAt(0)
                     this.isPartOfDocument(event.path[1].getSelection().getRangeAt(0)) &&  // event.path[1] is the window
@@ -185,12 +182,12 @@ export class DocumentReaderComponent implements OnInit, OnDestroy, AfterViewChec
     }
 
     highlightButtonPressed(highlight: Highlight) {
-        this.initHighlighter(highlight.color);
+        this.initHighlighter(highlight.getColor());
 
         // TODO: should only check for range in the document presenter
         if (window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).toString() != "") {
             // A range is selected, highlight it
-            this.hltr.setColor(highlight.color);
+            this.hltr.setColor(highlight.getColor());
             this.hltr.doHighlight(); // Normalize?
             return;
         } else {
@@ -199,11 +196,19 @@ export class DocumentReaderComponent implements OnInit, OnDestroy, AfterViewChec
                 this.hltr.unbindEvents();
                 highlight.auto = false;
             } else {
-                this.hltr.setColor(highlight.color);
+                this.hltr.setColor(highlight.getColor());
                 this.hltr.bindEvents();
                 this.highlights.forEach(hl => hl.auto = false);
                 highlight.auto = true;
             }
         }
+    }
+
+    onMouseOver(highlight: Highlight){
+        highlight.hover = true;
+    }
+
+    onMouseLeave(highlight: Highlight){
+        highlight.hover = false;
     }
 }

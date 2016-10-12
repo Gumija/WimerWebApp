@@ -19,7 +19,7 @@ export class HighlightService {
         } else {
             id = 1;
         }
-        var c = new Highlight(id, highlight.color);
+        var c = new Highlight(id, highlight.R, highlight.G, highlight.B, highlight.A);
         highlights.push(c);
     }
 
@@ -31,14 +31,17 @@ export class HighlightService {
     updateComment(highlight: Highlight) {
         highlights.map(h => {
             if (h.id == highlight.id) {
-                h.color = highlight.color;
+                h.R = highlight.R;
+                h.G = highlight.G;
+                h.B = highlight.B;
+                h.A = highlight.A;
             }
         });
     }
 }
 
 var highlights = [
-    new Highlight(1, 'rgba(100, 100, 255, 0.4)'),
-    new Highlight(2, 'rgba(240, 0, 0, 0.4)'),
+    new Highlight(1, 100, 100, 255, 0.4),
+    new Highlight(2, 240, 0, 0, 0.4),
 
 ];

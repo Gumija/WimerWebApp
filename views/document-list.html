@@ -79,7 +79,7 @@
             <div class="tab-content">
                 <div id="listview" class="tab-pane fade in active">
                     <ul class="list-group">
-                        <a *ngFor="let doc of documentList" [routerLink]="['/DocumentReader', {id: doc.id}]" class="list-group-item">
+                        <a *ngFor="let doc of documentList" [routerLink]="['/document', doc.id]" class="list-group-item">
                             <img *ngIf="doc.coverImagePath!=''" class="list-style" src="{{doc.coverImagePath}}" />
                             <span *ngIf="doc.coverImagePath==''" class="glyphicon glyphicon-book list-pic-alias"></span>
                             <ul class="list-unstyled my-inline">

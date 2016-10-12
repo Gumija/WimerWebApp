@@ -88,11 +88,6 @@
   background-color: rgba(83, 83, 211, 0.6);
   border-color: rgb(75,75,191);
 }
-.btn-hl-lightblue:active,
-.btn-hl-lightblue.active,
-.open > .dropdown-toggle.btn-hl-lightblue {
-  background-image: none;
-}
 .btn-hl-lightblue.disabled:hover,
 .btn-hl-lightblue[disabled]:hover,
 fieldset[disabled] .btn-hl-lightblue:hover,
@@ -104,10 +99,6 @@ fieldset[disabled] .btn-hl-lightblue:focus,
 fieldset[disabled] .btn-hl-lightblue.focus {
   background-color:rgba(100, 100, 255, 0.4);
   border-color: rgb(100,100,255);
-}
-.btn-hl-lightblue .badge {
-  color: rgba(100, 100, 255, 0.4);
-  background-color: black;
 }
 
 

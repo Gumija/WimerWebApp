@@ -27,7 +27,7 @@ export class DocumentListComponent implements OnInit {
     }
 
     openDocument(id: string) {
-        this.router.navigate(['DocumentReader', { id: id }]);
+        this.router.navigate(['/document', id]);
     }
 
     ngOnInit() {

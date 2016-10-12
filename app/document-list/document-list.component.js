@@ -21,7 +21,7 @@ var DocumentListComponent = (function () {
         this.documentListElementService.getDocumentListElements().then(function (documents) { return _this.documentList = documents; }, function (error) { return _this.errorMessage = error; });
     };
     DocumentListComponent.prototype.openDocument = function (id) {
-        this.router.navigate(['DocumentReader', { id: id }]);
+        this.router.navigate(['/document', id]);
     };
     DocumentListComponent.prototype.ngOnInit = function () {
         this.getDocuments();

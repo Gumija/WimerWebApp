@@ -1,4 +1,3 @@
-/// <reference path="../../typings/TextHighlighter.d.ts" />
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -16,12 +15,11 @@ var highlight_service_1 = require('./highlight.service');
 var comment_1 = require('./comment');
 var router_1 = require('@angular/router');
 var DocumentReaderComponent = (function () {
-    function DocumentReaderComponent(documentService, commentService, highlightService, route, location, renderer) {
+    function DocumentReaderComponent(documentService, commentService, highlightService, route, renderer) {
         this.documentService = documentService;
         this.commentService = commentService;
         this.highlightService = highlightService;
         this.route = route;
-        this.location = location;
         this.renderer = renderer;
     }
     DocumentReaderComponent.prototype.editComment = function (comment) {
@@ -89,7 +87,7 @@ var DocumentReaderComponent = (function () {
         console.log("View checked");
         if (this.txtPresenter != undefined && this.firstLoad) {
             this.globalListenSelectionChange = this.renderer.listenGlobal('document', 'selectionchange', function (event) {
-                console.log(event);
+                // console.log(event);
                 _this.firstSelectionDone = true;
                 if (event.path[1].getSelection() != 0 &&
                     _this.isPartOfDocument(event.path[1].getSelection().getRangeAt(0)) &&
@@ -141,11 +139,11 @@ var DocumentReaderComponent = (function () {
         }
     };
     DocumentReaderComponent.prototype.highlightButtonPressed = function (highlight) {
-        this.initHighlighter(highlight.color);
+        this.initHighlighter(highlight.getColor());
         // TODO: should only check for range in the document presenter
         if (window.getSelection().rangeCount > 0 && window.getSelection().getRangeAt(0).toString() != "") {
             // A range is selected, highlight it
-            this.hltr.setColor(highlight.color);
+            this.hltr.setColor(highlight.getColor());
             this.hltr.doHighlight(); // Normalize?
             return;
         }
@@ -156,12 +154,18 @@ var DocumentReaderComponent = (function () {
                 highlight.auto = false;
             }
             else {
-                this.hltr.setColor(highlight.color);
+                this.hltr.setColor(highlight.getColor());
                 this.hltr.bindEvents();
                 this.highlights.forEach(function (hl) { return hl.auto = false; });
                 highlight.auto = true;
             }
         }
+    };
+    DocumentReaderComponent.prototype.onMouseOver = function (highlight) {
+        highlight.hover = true;
+    };
+    DocumentReaderComponent.prototype.onMouseLeave = function (highlight) {
+        highlight.hover = false;
     };
     __decorate([
         core_1.ViewChild('txt_presenter'), 
@@ -182,7 +186,7 @@ var DocumentReaderComponent = (function () {
             templateUrl: '../../views/document-reader.html',
             styleUrls: ['../../styles/document-reader.css'],
         }), 
-        __metadata('design:paramtypes', [document_service_1.DocumentService, comment_service_1.CommentService, highlight_service_1.HighlightService, router_1.ActivatedRoute, Location, core_1.Renderer])
+        __metadata('design:paramtypes', [document_service_1.DocumentService, comment_service_1.CommentService, highlight_service_1.HighlightService, router_1.ActivatedRoute, core_1.Renderer])
     ], DocumentReaderComponent);
     return DocumentReaderComponent;
 }());

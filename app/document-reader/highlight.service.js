@@ -25,7 +25,7 @@ var HighlightService = (function () {
         else {
             id = 1;
         }
-        var c = new highlight_1.Highlight(id, highlight.color);
+        var c = new highlight_1.Highlight(id, highlight.R, highlight.G, highlight.B, highlight.A);
         highlights.push(c);
     };
     HighlightService.prototype.removeHighlight = function (id) {
@@ -35,7 +35,10 @@ var HighlightService = (function () {
     HighlightService.prototype.updateComment = function (highlight) {
         highlights.map(function (h) {
             if (h.id == highlight.id) {
-                h.color = highlight.color;
+                h.R = highlight.R;
+                h.G = highlight.G;
+                h.B = highlight.B;
+                h.A = highlight.A;
             }
         });
     };
@@ -47,7 +50,7 @@ var HighlightService = (function () {
 }());
 exports.HighlightService = HighlightService;
 var highlights = [
-    new highlight_1.Highlight(1, 'rgba(100, 100, 255, 0.4)'),
-    new highlight_1.Highlight(2, 'rgba(240, 0, 0, 0.4)'),
+    new highlight_1.Highlight(1, 100, 100, 255, 0.4),
+    new highlight_1.Highlight(2, 240, 0, 0, 0.4),
 ];
 //# sourceMappingURL=highlight.service.js.map
